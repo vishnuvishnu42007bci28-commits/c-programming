@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+// Helper macro to find the minimum of two values
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+// Helper macro to find the maximum of two values
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int maxArea(int* height, int heightSize) {
+    int left = 0;
+    int right = heightSize - 1;
+    int max_water = 0;
+
+    while (left < right) {
+        int width = right - left;
+        int current_height = MIN(height[left], height[right]);
+        
+        // Calculate area and update maximum
+        int current_water = width * current_height;
+        max_water = MAX(max_water, current_water);
+        
+        // Move the pointer pointing to the shorter vertical line
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+
+    return max_water;
+}
